@@ -24,7 +24,6 @@ def player(board):
     """
     if terminal(board):
         return terminal(board)
-
     x_count = 0
     o_count = 0
     for row in board:
