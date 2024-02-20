@@ -60,12 +60,16 @@ def result(board, action):
     """
     Returns the board that results from making move (i, j) on the board.
     """
+    row, col = action
+    if row < 0 or row >= len(board) or col < 0 or col >= len(board[0]) or board[row][col] != EMPTY:
+        # If the action is out of bounds or the position is already taken, raise an exception
+        raise ValueError("Invalid action: Out of bounds or position already taken")
+
     if terminal(board):
         return terminal(board)
     else:
         player_move = player(board)
         board_copy = copy.deepcopy(board)
-        row, col = action
         board_copy[row][col] = player(board)
         return board_copy
 
