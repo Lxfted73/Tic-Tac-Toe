@@ -126,7 +126,8 @@ def utility(board):
             return 1
         else:
             return -1
-    raise NotImplementedError
+    else:
+        return 0
 
 
 def minimax(board):
