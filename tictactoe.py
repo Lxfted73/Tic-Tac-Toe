@@ -108,9 +108,9 @@ def terminal(board):
         return True
     else:
         word_count = 0
-        for row in board():
-            for column in row:
-                if column == X or O:
+        for row in board:
+            for col in row:
+                if col != EMPTY:
                     word_count += 1
     if word_count == 9:
         return True
