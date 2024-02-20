@@ -78,6 +78,15 @@ def winner(board):
     """
     Returns the winner of the game, if there is one.
     """
+    #Check Rows
+    player_move = player(board)
+    for row, column in board:
+        if all(board[i] == player_move for i in range(3)):
+            return player_move
+
+    for row in board:
+        for column in board[row]:
+             if all(board[row][column] == player_move for i in range(3)):
     raise NotImplementedError
 
 
@@ -85,7 +94,18 @@ def terminal(board):
     """
     Returns True if game is over, False otherwise.
     """
-    raise NotImplementedError
+    if winner(board):
+        return True
+    else:
+        word_count = 0
+        for row in board():
+            for column in row:
+                if column == X or O:
+                    word_count += 1
+    if word_count == 9:
+        return True
+    else:
+        return False
 
 
 def utility(board):
