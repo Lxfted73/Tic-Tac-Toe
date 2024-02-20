@@ -2,9 +2,9 @@
 
 This Python module implements a Tic Tac Toe game player using the Minimax algorithm. The game is represented by a 3x3 board where two players, X and O, take turns to mark a space. The game ends when one player has three of their marks in a horizontal, vertical, or diagonal row or when the board is full.
 
-## How to Use
+## How to Use/How it works
 
-1. **Starting the Game**: Use the `initial_state()` function to get the starting state of the board, which is a 3x3 matrix filled with `None`, representing an empty board.
+1. **Starting the Game**: Use the `runner.py` file to get the starting state of the board, which is a 3x3 matrix filled with `None`, representing an empty board.
 
 2. **Determining the Player**: The `player(board)` function returns which player has the next turn on a given board. It returns `X` if it's X's turn and `O` if it's O's turn.
 
