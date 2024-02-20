@@ -67,7 +67,7 @@ def result(board, action):
     else:
         player_move = player(board)
         board_copy = copy.deepcopy(board)
-        board_copy[action[0]action[1]] = player(board)
+        board_copy[action[0],action[1]] = player(board)
         return board_copy
 
 
@@ -113,11 +113,10 @@ def utility(board):
     """
     Returns 1 if X has won the game, -1 if O has won, 0 otherwise.
     """
-    if terminal(board):
-        if winner(board) == X:
-            return 1
-        else:
-            return -1
+    if winner(board) == X:
+        return 1
+    elif winner(board) == O:
+        return -1
     else:
         return 0
 
