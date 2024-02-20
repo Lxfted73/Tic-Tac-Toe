@@ -32,7 +32,7 @@ def player(board):
             elif cell == O:
                 o_count += 1
             #In this case, the value is EMPTY
-            elif board[row][column] == EMPTY:
+            elif cell == EMPTY:
                 pass
             else:
                 raise Exception("Row {row} and column {column} are not valid".format(row=row, column=column))
