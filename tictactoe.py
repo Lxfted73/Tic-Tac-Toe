@@ -67,7 +67,7 @@ def result(board, action):
     else:
         player_move = player(board)
         board_copy = copy.deepcopy(board)
-        board_copy[action[0],action[1]] = player(board)
+        board_copy[action[0]action[1]] = player(board)
         return board_copy
 
 
@@ -94,7 +94,8 @@ def winner(board):
     if all(board[i][3 - i] == player_move for i in range(3)):
         print(f"Player {player_move} has won the game by completing a Bottom to Top, Left to Right Diag")
         return player_move
-    raise NotImplementedError
+
+    return None
 
 
 def terminal(board):
