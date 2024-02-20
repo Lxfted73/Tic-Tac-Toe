@@ -46,6 +46,9 @@ def actions(board):
     """
     Returns set of all possible actions (i, j) available on the board.
     """
+
+    if terminal(board):
+        raise Exception("Move not possible")
     action_set = set()
 
     for row in range(len(board)):
