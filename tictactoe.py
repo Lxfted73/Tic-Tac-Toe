@@ -102,18 +102,12 @@ def terminal(board):
     """
     Returns True if game is over, False otherwise.
     """
-    if winner(board):
+    if winner(board) is not None:
         return True
-    else:
-        word_count = 0
-        for row in board:
-            for col in row:
-                if col != EMPTY:
-                    word_count += 1
-    if word_count == 9:
-        return True
-    else:
-        return False
+    for row in board:
+        if EMPTY in row:
+            return False
+    return True
 
 def utility(board):
     """
