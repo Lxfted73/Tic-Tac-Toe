@@ -80,13 +80,20 @@ def winner(board):
     """
     #Check Rows
     player_move = player(board)
-    for row, column in board:
-        if all(board[i] == player_move for i in range(3)):
-            return player_move
-
     for row in board:
-        for column in board[row]:
-             if all(board[row][column] == player_move for i in range(3)):
+        if all(cell == player_move for cell in row):
+            print(f"Player {player_move} has won the game by completing a row")
+
+    for col in range(len(board[0])):
+        if all(board[row][col] == player_move for row in range(3)):
+            print(f"Player {player_move} has won the game by completing a col")
+
+    if all(board[i][i] == player_move for i in range(3)):
+        print(f"Player {player_move} has won the game by completing a Top to Bottom, Left to Right Diag")
+
+    if all(board[i][3 - i] == player_move for i in range(3)):
+        print(f"Player {player_move} has won the game by completing a Bottom to Top, Left to Right Diag")
+
     raise NotImplementedError
 
 
@@ -123,4 +130,5 @@ def minimax(board):
     """
     Returns the optimal action for the current player on the board.
     """
+
     raise NotImplementedError
