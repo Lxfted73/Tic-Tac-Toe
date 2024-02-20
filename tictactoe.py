@@ -26,10 +26,10 @@ def player(board):
     x_count = 0
     o_count = 0
     for row in board:
-        for column in row:
-            if board[row][column] == X:
+        for cell in row:
+            if cell == X:
                 x_count += 1
-            elif board[row][column] == O:
+            elif cell == O:
                 o_count += 1
             #In this case, the value is EMPTY
             elif board[row][column] == EMPTY:
