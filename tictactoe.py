@@ -28,18 +28,24 @@ def player(board):
     x_count = 0
     o_count = 0
     for row in board:
-        for cell in row:
-            if cell == X:
+        for column in row:
+            if board[row][column] == X:
                 x_count += 1
-            elif cell == O:
+            elif board[row][column] == O:
                 o_count += 1
+            #In this case, the value is EMPTY
+            elif board[row][column] == EMPTY:
+                pass
             else:
                 raise Exception("Row {row} and column {column} are not valid".format(row=row, column=column))
 
-    if x_count <= o_count:
+    if x_count == o_count:
         return X
-    else:
+    elif x_count == o_count + 1:
         return O
+    else:
+        raise Exception("x_count {x_count} and o_count {o_count} are not valid".
+                        format(x_count=x_count, o_count=o_count))
 
 def actions(board):
     """
