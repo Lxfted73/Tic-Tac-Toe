@@ -129,15 +129,15 @@ def minimax(board):
         return None
 
     if player(board) == X:
-        value, move = maxValue(board)
+        _, move = maxValue(board)
         return move
     else:
-        value, move = minValue(board)
+        _, move = minValue(board)
         return move
 
 def maxValue(board):
     if terminal(board):
-        return utility(board)
+        return utility(board), None
     v = float('-inf')
     best_move = None
     for action in actions(board):
@@ -151,7 +151,7 @@ def maxValue(board):
 
 def minValue(board):
     if terminal(board):
-        return utility(board)
+        return utility(board), None
     v = float('inf')
     best_move = None
     for action in actions(board):
@@ -162,4 +162,3 @@ def minValue(board):
         if v == -1:
             break
     return v, best_move
-    raise NotImplementedError
