@@ -28,7 +28,7 @@ def player(board):
     x_count = 0
     o_count = 0
     for row in board:
-        for column in board[row]:
+        for column in row:
             if board[row][column] == X:
                 x_count += 1
             elif board[row][column] == O:
@@ -70,7 +70,7 @@ def result(board, action):
     else:
         player_move = player(board)
         board_copy = copy.deepcopy(board)
-        board_copy[action(0), action(1)] = player(board)
+        board_copy[action[0],action[1]] = player(board)
         return board_copy
 
 
@@ -83,17 +83,20 @@ def winner(board):
     for row in board:
         if all(cell == player_move for cell in row):
             print(f"Player {player_move} has won the game by completing a row")
+            return player_move
 
     for col in range(len(board[0])):
         if all(board[row][col] == player_move for row in range(3)):
             print(f"Player {player_move} has won the game by completing a col")
+            return player_move
 
     if all(board[i][i] == player_move for i in range(3)):
         print(f"Player {player_move} has won the game by completing a Top to Bottom, Left to Right Diag")
+        return player_move
 
     if all(board[i][3 - i] == player_move for i in range(3)):
         print(f"Player {player_move} has won the game by completing a Bottom to Top, Left to Right Diag")
-
+        return player_move
     raise NotImplementedError
 
 
