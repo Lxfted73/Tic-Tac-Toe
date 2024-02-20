@@ -43,9 +43,6 @@ def player(board):
         return X
     elif x_count == o_count + 1:
         return O
-    else:
-        raise Exception("x_count {x_count} and o_count {o_count} are not valid".
-                        format(x_count=x_count, o_count=o_count))
 
 def actions(board):
     """
