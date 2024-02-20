@@ -23,6 +23,8 @@ def player(board):
     """
     Returns player who has the next turn on a board.
     """
+    if terminal(board):
+        return X
     x_count = 0
     o_count = 0
     for row in board:
@@ -35,7 +37,7 @@ def player(board):
             elif cell == EMPTY:
                 pass
             else:
-                raise Exception("Row {row} and column {column} are not valid".format(row=row, column=column))
+                raise Exception("Row {row} and column {column} are not valid".format(row=row, column=cell))
 
     if x_count == o_count:
         return X
@@ -46,16 +48,13 @@ def actions(board):
     """
     Returns set of all possible actions (i, j) available on the board.
     """
-
     if terminal(board):
-        raise Exception("Move not possible")
+        return None
     action_set = set()
-
     for row in range(len(board)):
         for col in range(len(board[row])):
             if board[row][col] == EMPTY:
                 action_set.add((row, col))
-
     return action_set
 
 
@@ -63,12 +62,14 @@ def result(board, action):
     """
     Returns the board that results from making move (i, j) on the board.
     """
-    if terminal(board):
-        return terminal(board)
+    row, col = action
+    if row < 0 or row >= len(board) or col < 0 or col >= len(board[0]) or board[row][col] != EMPTY:
+        # If the action is out of bounds or the position is already taken, raise an exception
+        raise ValueError("Invalid action: Out of bounds or position already taken")
+
     else:
         player_move = player(board)
         board_copy = copy.deepcopy(board)
-        row, col = action
         board_copy[row][col] = player(board)
         return board_copy
 
@@ -77,25 +78,43 @@ def winner(board):
     """
     Returns the winner of the game, if there is one.
     """
-    #Check Rows
-    player_move = player(board)
     for row in board:
-        if all(cell == player_move for cell in row):
-            print(f"Player {player_move} has won the game by completing a row")
-            return player_move
+        if all(cell == X for cell in row):
+            print(f"Player X has won the game by completing a row")
+            return X
 
-    for col in range(len(board[0])):
-        if all(board[row][col] == player_move for row in range(3)):
-            print(f"Player {player_move} has won the game by completing a col")
-            return player_move
+    for col in range(3):
+        if all(board[row][col] == X for row in range(3)):
+            print(f"Player X has won the game by completing a col")
+            return X
 
-    if all(board[i][i] == player_move for i in range(3)):
-        print(f"Player {player_move} has won the game by completing a Top to Bottom, Left to Right Diag")
-        return player_move
+    if all(board[i][i] == X for i in range(3)):
+        print(f"Player X has won the game by completing a Top to Bottom, Left to Right Diag")
+        return X
 
-    if all(board[i][2 - i] == player_move for i in range(3)):
-        print(f"Player {player_move} has won the game by completing a Bottom to Top, Left to Right Diag")
-        return player_move
+    if all(board[i][2 - i] == X for i in range(3)):
+        print(f"Player X has won the game by completing a Bottom to Top, Left to Right Diag")
+        return X
+
+    for row in board:
+        if all(cell == O for cell in row):
+            print(f"Player O has won the game by completing a row")
+            return O
+
+
+
+    for col in range(3):
+        if all(board[row][col] == O for row in range(3)):
+            print(f"Player O has won the game by completing a col")
+            return O
+
+    if all(board[i][i] == O for i in range(3)):
+        print(f"Player X has won the game by completing a Top to Bottom, Left to Right Diag")
+        return O
+
+    if all(board[i][2 - i] == X for i in range(3)):
+        print(f"Player X has won the game by completing a Bottom to Top, Left to Right Diag")
+        return O
 
     return None
 
@@ -106,10 +125,10 @@ def terminal(board):
     """
     if winner(board) is not None:
         return True
-    for row in board:
-        if EMPTY in row:
+    else:
+        if any(EMPTY in row for row in board):
             return False
-    return True
+        return True
 
 def utility(board):
     """
@@ -148,7 +167,7 @@ def maxValue(board):
             v = move_eval
             best_move = action
         if v == 1:
-            break
+            return v, best_move
     return v, best_move
 
 def minValue(board):
@@ -162,5 +181,5 @@ def minValue(board):
             v = move_val
             best_move = action
         if v == -1:
-            break
+            return v, best_move
     return v, best_move
