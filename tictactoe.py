@@ -65,7 +65,8 @@ def result(board, action):
     else:
         player_move = player(board)
         board_copy = copy.deepcopy(board)
-        board_copy[action[0],action[1]] = player(board)
+        row, col = action
+        board_copy[row][col] = player(board)
         return board_copy
 
 
@@ -89,7 +90,7 @@ def winner(board):
         print(f"Player {player_move} has won the game by completing a Top to Bottom, Left to Right Diag")
         return player_move
 
-    if all(board[i][3 - i] == player_move for i in range(3)):
+    if all(board[i][2 - i] == player_move for i in range(3)):
         print(f"Player {player_move} has won the game by completing a Bottom to Top, Left to Right Diag")
         return player_move
 
